@@ -1,5 +1,5 @@
 const requests = {
-  numberOfTextAreas: `/`,
+  clientId: `/`,
 };
 
 export default requests;

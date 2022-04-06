@@ -7,24 +7,10 @@ function App() {
   const [TextAreaNumber, setTextAreaNumber] = useState(0);
   const [ClientId, setClientId] = useState(-1);
   useEffect(() => {
-    window.addEventListener("beforeunload", (ev) => {
-      ev.preventDefault();
-      async function fetchData() {
-        const request = await axios.delete(requests.numberOfTextAreas);
-
-        setTextAreaNumber(request.data.number);
-        return request;
-      }
-      fetchData();
-      return (ev.returnValue = "test");
-    });
-  });
-
-  useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(requests.numberOfTextAreas);
-
-      setTextAreaNumber(request.data.number);
+      const request = await axios.get(requests.clientId);
+      console.log(request.data.number);
+      setClientId(request.data.number);
       return request;
     }
     fetchData();
@@ -32,11 +18,20 @@ function App() {
   const list = [];
   let textAreavar = TextAreaNumber;
   while (textAreavar) {
-    list.push(<TextArea></TextArea>);
+    if (ClientId == textAreavar) {
+      list.push(<TextArea itsme={true}></TextArea>);
+    } else {
+      list.push(<TextArea></TextArea>);
+    }
+
     textAreavar--;
   }
 
-  return <div className="App">{list}</div>;
+  return (
+    <div className="App">
+      <TextArea></TextArea>
+    </div>
+  );
 }
 
 export default App;
