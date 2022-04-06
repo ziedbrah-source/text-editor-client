@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import TextArea from "./TextArea";
+import axios from "./axios";
+import requests from "./requests";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [TextAreaNumber, setTextAreaNumber] = useState(0);
+  const [ClientId, setClientId] = useState(-1);
+  useEffect(() => {
+    window.addEventListener("beforeunload", (ev) => {
+      ev.preventDefault();
+      async function fetchData() {
+        const request = await axios.delete(requests.numberOfTextAreas);
+
+        setTextAreaNumber(request.data.number);
+        return request;
+      }
+      fetchData();
+      return (ev.returnValue = "test");
+    });
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      const request = await axios.get(requests.numberOfTextAreas);
+
+      setTextAreaNumber(request.data.number);
+      return request;
+    }
+    fetchData();
+  }, []);
+  const list = [];
+  let textAreavar = TextAreaNumber;
+  while (textAreavar) {
+    list.push(<TextArea></TextArea>);
+    textAreavar--;
+  }
+
+  return <div className="App">{list}</div>;
 }
 
 export default App;
