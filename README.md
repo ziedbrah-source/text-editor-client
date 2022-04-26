@@ -1,21 +1,4 @@
-import pyautogui
-import time 
-from datetime import datetime
-while(True):
-  time.sleep(30)
-  pyautogui.moveTo(971,601)
-  pyautogui.click()
-  time.sleep(15)
-  pyautogui.moveTo(992,835)
-  pyautogui.click()
-  time.sleep(15)
-  pyautogui.moveTo(170,88)
-  pyautogui.click()
- # datetime object containing current date and time
-  now = datetime.now()
-  print("now =", now)
-  dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-  print("date and time =", dt_string)
+
 
 
 # Getting Started with Create React App
